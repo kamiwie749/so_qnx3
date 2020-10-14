@@ -1,0 +1,14 @@
+./forkfork 2 3 2 3
+Proces macierzysty PID = 32073, PPID = 31980
+Proces potomny PID = 32074 PPID = 32073
+Proces macierzysty PID = 32073, PPID = 31980
+Proces potomny PID = 32074 PPID = 32073
+Proces potomny PID = 32074 PPID = 32073
+Proces potomny PID = 32075 PPID = 32074
+Proces potomny PID = 32075 PPID = 32074
+Proces potomny PID = 32076 PPID = 32075
+Proces potomny PID = 32076 PPID = 32075
+Proces potomny PID = 32076 PPID = 32075
+Zamknieto proces 32076  kodem 1
+Zamknieto proces 32075  kodem 2
+Zamknieto proces 32074  kodem 3
