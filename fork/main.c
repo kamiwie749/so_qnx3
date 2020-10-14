@@ -5,13 +5,10 @@
 #include <unistd.h>
 
 int main(int argc, char* argv[]){
-    int i, j, k, w, status, kod;
+    int i, j, status, numer, pid;
     
-    //instrukcje procesu macierzystego 
-    for(k=0;k<atoi(argv[1]);k++){
-            printf("Proces macierzysty PID = %d, PPID = %d\n",getpid(), getppid());
-            sleep(1);
-        }
+    //instrukcje procesu macierzystego
+    pid = getpid();
     
     for(i=2;i<argc;i++){
         if(!fork()){
@@ -22,11 +19,17 @@ int main(int argc, char* argv[]){
             exit(i);
         }
     }
-    
-    for(w=2;w<argc; w++){
-        kod = wait(&status);
-        printf("Zamknieto proces %d  kodem %d\n",kod, WEXITSTATUS(status));
+    if(getpid() == pid){
+         for(i=0;i<atoi(argv[1]);i++){
+            printf("Proces macierzysty PID = %d, PPID = %d\n",getpid(), getppid());
+            sleep(1);
+        }
     }
     
+    for(i=2;i<argc; i++){
+        numer = wait(&status);
+        printf("Zamknieto proces %d  kodem %d\n",numer, WEXITSTATUS(status));
+    }
+
     return 0;
 }
