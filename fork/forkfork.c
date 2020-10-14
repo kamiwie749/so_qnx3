@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 void rekurencja(int ile, int ileTab[], int kursor){
-    int j;
+    int j, status, numer;
     if(!fork()){
         for(j = 0; j < ileTab[kursor]; j++){
             printf("Proces potomny PID = %d PPID = %d\n",getpid(),getppid());
@@ -15,12 +15,17 @@ void rekurencja(int ile, int ileTab[], int kursor){
         if(ile>1){
             rekurencja(ile-1, ileTab, kursor + 1);
         }
+        if(ile>1){ //ostatni proces nie musi już czekać na zamnięcie bo nie ma potomka
+            numer = wait(&status);
+            printf("Zamknieto proces %d  kodem %d\n",numer, WEXITSTATUS(status));
+        }
+        exit(ile);
     }
 }
 
 
 int main(int argc, char* argv[]){
-    int i, kursor, status, kod, pid, *ileTab;
+    int i, kursor, status, numer, pid, *ileTab;
     int ile = argc - 2; //- nazwa - maciezysty
     pid = getpid();
     ileTab = malloc(ile*sizeof(int));
@@ -37,11 +42,8 @@ int main(int argc, char* argv[]){
             sleep(1);
         }
     }
-    
-    for(i=2; i<argc ;i++){
-        kod = wait(&status);
-        //printf("Zamknieto proces %d  kodem %d\n",kod, WEXITSTATUS(status));
-    }
+    numer = wait(&status);
+    printf("Zamknieto proces %d  kodem %d\n",numer, WEXITSTATUS(status));
     
    return 0;
 }
