@@ -13,7 +13,6 @@ void rekurencja(int ile, int ileTab[], int kursor){
         }
         //exit(ile); //nwm jak dobrze zakończyć te procesy
         if(ile>1){
-            printf("tak\n");
             rekurencja(ile-1, ileTab, kursor + 1);
         }
     }
